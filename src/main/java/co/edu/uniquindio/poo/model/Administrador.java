@@ -2,11 +2,22 @@ package co.edu.uniquindio.poo.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.AllArgsConstructor;
 
+@Getter
+@Builder
+@AllArgsConstructor
 public class Administrador {
     private final String idAdmin;
+    @Setter
     private String nombre;
-    private Set<Permiso> permisos;
+    @Setter
+    private String correo;
+    @Builder.Default
+    private Set<Permiso> permisos = new HashSet<>();
     
     public enum Permiso {
         GESTIONAR_USUARIOS,
@@ -18,57 +29,19 @@ public class Administrador {
         GENERAR_REPORTES
     }
     
-    private Administrador(Builder builder) {
-        this.idAdmin = builder.idAdmin;
-        this.nombre = builder.nombre;
-        this.permisos = new HashSet<>(builder.permisos);
-    }
-    
-    // Builder Pattern
-    public static class Builder {
-        private String idAdmin;
-        private String nombre;
-        private Set<Permiso> permisos;
-        
-        public Builder(String idAdmin) {
-            this.idAdmin = idAdmin;
-            this.permisos = new HashSet<>();
-        }
-        
-        public Builder conNombre(String nombre) {
-            this.nombre = nombre;
-            return this;
-        }
-        
-        public Builder conPermiso(Permiso permiso) {
-            this.permisos.add(permiso);
-            return this;
-        }
-        
-        public Builder conPermisos(Set<Permiso> permisos) {
-            this.permisos.addAll(permisos);
-            return this;
-        }
-        
-        public Administrador build() {
-            return new Administrador(this);
-        }
-    }
-    
-    // Getters
-    public String getIdAdmin() {
-        return idAdmin;
-    }
-    
-    public String getNombre() {
-        return nombre;
-    }
-    
     public Set<Permiso> getPermisos() {
         return new HashSet<>(permisos);
     }
     
     public boolean tienePermiso(Permiso permiso) {
         return permisos.contains(permiso);
+    }
+    
+    public void agregarPermiso(Permiso permiso) {
+        permisos.add(permiso);
+    }
+    
+    public void removerPermiso(Permiso permiso) {
+        permisos.remove(permiso);
     }
 }

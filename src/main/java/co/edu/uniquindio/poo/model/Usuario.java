@@ -2,71 +2,26 @@ package co.edu.uniquindio.poo.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.AllArgsConstructor;
 
+@Getter
+@Builder
+@AllArgsConstructor
 public class Usuario {
     private final String idUsuario;
+    @Setter
     private String nombreCompleto;
+    @Setter
     private String correoElectronico;
+    @Setter
     private String telefono;
-    private List<Direccion> direccionesFrecuentes;
-    private List<MetodoPago> metodosPago;
-    
-    private Usuario(Builder builder) {
-        this.idUsuario = builder.idUsuario;
-        this.nombreCompleto = builder.nombreCompleto;
-        this.correoElectronico = builder.correoElectronico;
-        this.telefono = builder.telefono;
-        this.direccionesFrecuentes = new ArrayList<>();
-        this.metodosPago = new ArrayList<>();
-    }
-    
-    // Builder Pattern
-    public static class Builder {
-        private String idUsuario;
-        private String nombreCompleto;
-        private String correoElectronico;
-        private String telefono;
-        
-        public Builder(String idUsuario) {
-            this.idUsuario = idUsuario;
-        }
-        
-        public Builder conNombreCompleto(String nombreCompleto) {
-            this.nombreCompleto = nombreCompleto;
-            return this;
-        }
-        
-        public Builder conCorreoElectronico(String correoElectronico) {
-            this.correoElectronico = correoElectronico;
-            return this;
-        }
-        
-        public Builder conTelefono(String telefono) {
-            this.telefono = telefono;
-            return this;
-        }
-        
-        public Usuario build() {
-            return new Usuario(this);
-        }
-    }
-    
-    // Getters
-    public String getIdUsuario() {
-        return idUsuario;
-    }
-    
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-    
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
-    
-    public String getTelefono() {
-        return telefono;
-    }
+    @Builder.Default
+    private List<Direccion> direccionesFrecuentes = new ArrayList<>();
+    @Builder.Default
+    private List<MetodoPago> metodosPago = new ArrayList<>();
     
     public List<Direccion> getDireccionesFrecuentes() {
         return new ArrayList<>(direccionesFrecuentes);
@@ -74,5 +29,21 @@ public class Usuario {
     
     public List<MetodoPago> getMetodosPago() {
         return new ArrayList<>(metodosPago);
+    }
+    
+    public void agregarDireccionFrecuente(Direccion direccion) {
+        direccionesFrecuentes.add(direccion);
+    }
+    
+    public void agregarMetodoPago(MetodoPago metodoPago) {
+        metodosPago.add(metodoPago);
+    }
+    
+    public void removerDireccionFrecuente(Direccion direccion) {
+        direccionesFrecuentes.remove(direccion);
+    }
+    
+    public void removerMetodoPago(MetodoPago metodoPago) {
+        metodosPago.remove(metodoPago);
     }
 }

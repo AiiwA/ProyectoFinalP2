@@ -1,31 +1,36 @@
 package co.edu.uniquindio.poo.model;
 
+import lombok.Getter;
+
 public class Tarifa {
     private double base;
-    private double pesoExtra;
-    private double volumenExtra;
-    private double recargoPrioridad;
+    private double peso;
+    private double volumen;
+    private double prioridad;
+    private double recargos;
     
     private Tarifa(Builder builder) {
         this.base = builder.base;
-        this.pesoExtra = builder.pesoExtra;
-        this.volumenExtra = builder.volumenExtra;
-        this.recargoPrioridad = builder.recargoPrioridad;
+        this.peso = builder.peso;
+        this.volumen = builder.volumen;
+        this.prioridad = builder.prioridad;
+        this.recargos = builder.recargos;
     }
     
     // Builder Pattern
     public static class Builder {
         private double base;
-        private double pesoExtra;
-        private double volumenExtra;
-        private double recargoPrioridad;
+        private double peso;
+        private double volumen;
+        private double prioridad;
+        private double recargos;
         
-        public Builder() {
-            // Valores por defecto
-            this.base = 5000.0;
-            this.pesoExtra = 1000.0;
-            this.volumenExtra = 2000.0;
-            this.recargoPrioridad = 8000.0;
+        public Builder(double base) {
+            this.base = base;
+            this.peso = 0.0;
+            this.volumen = 0.0;
+            this.prioridad = 0.0;
+            this.recargos = 0.0;
         }
         
         public Builder conBase(double base) {
@@ -33,18 +38,23 @@ public class Tarifa {
             return this;
         }
         
-        public Builder conPesoExtra(double pesoExtra) {
-            this.pesoExtra = pesoExtra;
+        public Builder conPeso(double peso) {
+            this.peso = peso;
             return this;
         }
         
-        public Builder conVolumenExtra(double volumenExtra) {
-            this.volumenExtra = volumenExtra;
+        public Builder conVolumen(double volumen) {
+            this.volumen = volumen;
             return this;
         }
         
-        public Builder conRecargoPrioridad(double recargoPrioridad) {
-            this.recargoPrioridad = recargoPrioridad;
+        public Builder conPrioridad(double prioridad) {
+            this.prioridad = prioridad;
+            return this;
+        }
+        
+        public Builder conRecargos(double recargos) {
+            this.recargos = recargos;
             return this;
         }
         
@@ -58,15 +68,23 @@ public class Tarifa {
         return base;
     }
     
-    public double getPesoExtra() {
-        return pesoExtra;
+    public double getPeso() {
+        return peso;
     }
     
-    public double getVolumenExtra() {
-        return volumenExtra;
+    public double getVolumen() {
+        return volumen;
     }
     
-    public double getRecargoPrioridad() {
-        return recargoPrioridad;
+    public double getPrioridad() {
+        return prioridad;
+    }
+    
+    public double getRecargos() {
+        return recargos;
+    }
+    
+    public double calcularTotal() {
+        return base + peso + volumen + prioridad + recargos;
     }
 }
